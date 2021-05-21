@@ -1,5 +1,6 @@
-from functions_toolkit import __version__
+from functions_toolkit.functions_toolkit import fibonacci_iterative, fibonacci_recursive
 
-
-def test_version():
-    assert __version__ == '0.1.0'
+def test_fibonacci_iterative():
+    actual = fibonacci_iterative(5)
+    expected = 5
+    assert actual == expected
