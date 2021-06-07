@@ -1,3 +1,5 @@
+import functools
+
 # Iterative way to do Fibonacci sequence. returns Fibonacci number at the given index
 def fib_iter(num):
     a, b = 0, 1
@@ -40,5 +42,58 @@ def tower_of_hanoi(num, current, destination, aux_rod):
     print(f'\nMove disk {num} from rod {current} to rod {destination}')
     tower_of_hanoi(num-1, aux_rod, destination, current)
 
+#Looks to see if there are two numbers in the given array that add up to the given target number. Optimal solution because sets lookup has O(1) time.
+def find_two_sum(arr, target_sum):
+    compliment = set()
+    for num in arr:
+        if target_sum-num in compliment:
+            return f'{target_sum-num}, {num}, sum to {target_sum}'
+        compliment.add(num) 
+
+
+def find_three_sum(arr, target_sum):
+    compliment = set()
+    for i in range(len(arr)):
+        looking_for = target_sum - arr[i] # Looking_for will be the other two numbers we need to compliment num in order to add to get the target_sum
+        j, k = i+1, len(arr)-1
+        while j < k:
+            if arr[i]+arr[j]+arr[k] == target_sum:
+                return f'solution is {arr[i]}, {arr[j]}, {arr[k]}'
+            compliment.add(arr[i])
+            compliment.add(arr[j])
+            compliment.add(arr[k])
+            if looking_for-arr[j] in compliment:
+                return 'got it'
+            if looking_for-arr[k] in compliment:
+                return 'also got it'
+        set.add(arr[i])
+
+
+# memoization really speeds up recursive functions. The memo in this takes this from O(2^N) to O(N).
+# The memo will be passed to each recursive call and updated by each unique number that has not been calculated yet
+# If the number has been calculated, then the function call will just return the stored value in the memo.
+def memoized_fib_recursive(num, memo={}):
+    if num < 2:
+        return num
+    if num in memo:
+        return memo[num]
+    memo[num] = memoized_fib_recursive(num-1, memo) + memoized_fib_recursive(num-2, memo)
+    return memo[num]
+
+# this is the more pythonic way to memoize recursive functions, using the functools library.
+@functools.lru_cache(maxsize=None)
+def fib_with_cache(num):
+    if num < 2:
+        return num
+    return fib_with_cache(num-1) + fib_with_cache(num-2)
+
+#checks for brackets with elemination based approach
+def bracket_checker(string):
+    string = ''.join([char for char in string if char in '(){}[]']) # all non bracket characters are removed from the string
+    while any(char in string for char in ['()', '{}', '[]']): # while there are any pairs of brackets in the string
+        string = string.replace('()', '').replace('{}', '').replace('[]', '') # remove any current pairs of brackets from the string
+    return not string #this will return false if there are orphan brackets remaining in the string, and true if the string is empty.
+
 if __name__ == '__main__':
-    tower_of_hanoi(3, 'a', 'b', 'c',)
+    # tower_of_hanoi(3, 'a', 'b', 'c',)
+    print(memoized_fib_recursive(200))
