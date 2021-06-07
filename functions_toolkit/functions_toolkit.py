@@ -94,6 +94,9 @@ def bracket_checker(string):
         string = string.replace('()', '').replace('{}', '').replace('[]', '') # remove any current pairs of brackets from the string
     return not string #this will return false if there are orphan brackets remaining in the string, and true if the string is empty.
 
+
+
+
 if __name__ == '__main__':
-    # tower_of_hanoi(3, 'a', 'b', 'c',)
-    print(memoized_fib_recursive(200))
+    tower_of_hanoi(3, 'a', 'b', 'c',)
+    
