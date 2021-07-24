@@ -128,6 +128,5 @@ def most_consecutive_nums(arr):
 
 
 if __name__ == '__main__':
-    # tower_of_hanoi(3, 'a', 'b', 'c',)
-    print(fib_formula(1000))
+    tower_of_hanoi(3, 'a', 'b', 'c',)
     
