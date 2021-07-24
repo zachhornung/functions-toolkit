@@ -1,4 +1,5 @@
 import functools
+from math import sqrt
 
 # Iterative way to do Fibonacci sequence. returns Fibonacci number at the given index
 def fib_iter(num):
@@ -87,6 +88,12 @@ def fib_with_cache(num):
         return num
     return fib_with_cache(num-1) + fib_with_cache(num-2)
 
+def fib_formula(n):
+    p = ((1+sqrt(5))/2)**n
+    q = ((1-sqrt(5))/2)**n
+    fib = (p-q)/sqrt(5)
+    return int(fib)
+
 #checks for brackets with elemination based approach
 def bracket_checker(string):
     string = ''.join([char for char in string if char in '(){}[]']) # all non bracket characters are removed from the string
@@ -94,9 +101,33 @@ def bracket_checker(string):
         string = string.replace('()', '').replace('{}', '').replace('[]', '') # remove any current pairs of brackets from the string
     return not string #this will return false if there are orphan brackets remaining in the string, and true if the string is empty.
 
-
+def most_consecutive_nums(arr):
+    hash_map = {num:0 for num in arr}
+    l = r = 0
+    for num in arr:
+        if hash_map.get(num):
+            continue
+        i = num-1
+        j = num+1
+        while True:
+            if i in hash_map:
+                hash_map[i] += 1
+                i -= 1
+                continue
+            if j in hash_map:
+                hash_map[j] += 1
+                j += 1
+                continue
+            tl = i
+            tr = j
+            if (tr - tl) > r - l:
+                l = tl
+                r = tr
+            break
+    return r - l -1
 
 
 if __name__ == '__main__':
-    tower_of_hanoi(3, 'a', 'b', 'c',)
+    # tower_of_hanoi(3, 'a', 'b', 'c',)
+    print(fib_formula(1000))
     
