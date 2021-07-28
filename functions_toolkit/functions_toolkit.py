@@ -126,6 +126,20 @@ def most_consecutive_nums(arr):
             break
     return r - l -1
 
+def diameterOfBinaryTree(root):
+    res = 0
+    def walk(root):
+        nonlocal res
+        if root is None:
+            return 0 
+        left = walk(root.left)
+        right = walk(root.right)
+    
+        res = max(res, 1 + left + right)
+        return 1 + max(left, right)
+    walk(root)  
+    return res-1
+
 
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
