@@ -140,6 +140,25 @@ def diameterOfBinaryTree(root):
     walk(root)  
     return res-1
 
+from collections import Counter
+
+def find_clusters(mat):
+    clusters = {}
+    for y, row in enumerate(mat):
+        for x, col_val in enumerate(row):
+            if col_val == 1:
+                left = (x-1,y)
+                above = (x,y-1)
+            if left in clusters:
+                origin = clusters[left]
+            elif above in clusters:
+                origin = clusters[above]
+            else:
+                origin = (x,y)
+        clusters[(x,y)] = origin
+
+    return Counter(clusters.values()).values()
+
 
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
