@@ -212,6 +212,18 @@ def preorder(root):
         return []
     return dive(root)
 
+def postorderTraversal(root):
+    ans = []
+    def dive(root):
+        nonlocal ans
+        if not root:
+            return 
+        dive(root.left)
+        dive(root.right)
+        ans.append(root.val)
+    dive(root)
+    return ans
+
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
     
