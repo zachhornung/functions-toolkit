@@ -245,6 +245,18 @@ def checkValidString(s):
             return False
     return True
 
+def reverseParentheses(s):
+    loc = []
+    og = s
+    for i, char in enumerate(og):
+        if char == '(':
+            loc.append(i)
+        if char == ')':
+            start = loc.pop()
+            end = i
+            s = s[0:start+1]+s[start+1:end][::-1]+s[end:]
+    return ''.join([c for c in s if c not in '()'])
+
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
     
