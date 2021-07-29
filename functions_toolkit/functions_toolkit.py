@@ -202,6 +202,16 @@ def preorder(root):
     dive(root)
     return ans
 
+def preorder(root):
+    def dive(root):
+        if root:
+            ans = [root.val]
+            for child in root.children:
+                ans.extend(dive(child))
+            return ans
+        return []
+    return dive(root)
+
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
     
