@@ -224,6 +224,27 @@ def postorderTraversal(root):
     dive(root)
     return ans
 
+def checkValidString(s):
+    count = 0
+    for char in s:
+        if char == ')':
+            count -= 1
+        else:
+            count += 1
+        if count < 0:
+            return False
+    if not count:
+        return True
+    count = 0
+    for char in reversed(s):
+        if char == '(':
+            count -= 1
+        else:
+            count += 1
+        if count < 0:
+            return False
+    return True
+
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
     
