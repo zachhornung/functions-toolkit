@@ -159,6 +159,36 @@ def find_clusters(mat):
 
     return Counter(clusters.values()).values()
 
+def simplifyPath(path):
+    s1 = []
+    i = j = 0
+    while i < len(path):
+        if path[i] == '/':
+            i += 1
+            j += 1
+            continue
+        while (j < len(path)) and (path[j] != '/'):
+            j += 1
+        if path[i:j] == '..':
+            if not s1:
+                j += 1
+                i = j
+                continue
+            s1.pop()
+            j += 1
+            i = j
+            continue
+        if path[i:j] == '.':
+            j += 1
+            i = j
+            continue
+        s1.append(f'/{path[i:j]}')
+        j += 1
+        i = j
+    if not s1:
+        s1.append('/')
+    return ''.join(s1)
+
 
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
