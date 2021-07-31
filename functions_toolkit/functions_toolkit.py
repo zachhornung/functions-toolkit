@@ -257,6 +257,21 @@ def reverseParentheses(s):
             s = s[0:start+1]+s[start+1:end][::-1]+s[end:]
     return ''.join([c for c in s if c not in '()'])
 
+def scoreOfParentheses(s):
+    st = [0]
+    for c in s:
+        if c == '(':
+            st.append(0)
+            continue
+        close = st.pop()
+        if close == 0:
+            score = 1
+            st[-1] += score
+            continue
+        score = close * 2
+        st[-1] += score
+    return st[0]
+
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
     
