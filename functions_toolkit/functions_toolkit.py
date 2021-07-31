@@ -272,6 +272,27 @@ def scoreOfParentheses(s):
         st[-1] += score
     return st[0]
 
+def maximumGain(s, x, y):
+    a, b = "a", "b"
+    if x < y: 
+        x, y = y, x
+        a, b = b, a
+    ans = cnt0 = cnt1 = 0
+    for c in s: 
+        if c not in "ab": 
+            ans += min(cnt0, cnt1) * y
+            cnt0 = cnt1 = 0 
+            continue
+        if c == b:
+            if cnt0: 
+                cnt0 -= 1
+                ans += x
+                continue
+            cnt1 += 1
+            continue
+        cnt0 += 1
+    return ans + min(cnt0, cnt1) * y
+
 if __name__ == '__main__':
     tower_of_hanoi(3, 'a', 'b', 'c',)
     
